@@ -3,6 +3,7 @@ import Todo from "../assets/direct-hit.png";
 
 import "./TaskColumn.css";
 import TaskCard from "./TaskCard";
+import DropArea from "./DropArea";
 
 const TaskColumn = ({ title, icon, tasks, status, handleDelete, setDraggedTask }) => {
     return (
@@ -11,17 +12,22 @@ const TaskColumn = ({ title, icon, tasks, status, handleDelete, setDraggedTask }
                 <img className='task_column_icon' src={icon} alt='' /> {title}
             </h2>
 
+            <DropArea />
+
             {tasks.map(
                 (task, index) =>
                     task.status === status && (
-                        <TaskCard
-                            key={index}
-                            title={task.task}
-                            tags={task.tags}
-                            handleDelete={handleDelete}
-                            index={index}
-                            setDraggedTask={setDraggedTask}
-                        />
+                        <React.Fragment key={index}>
+                            <TaskCard
+                                key={index}
+                                title={task.task}
+                                tags={task.tags}
+                                handleDelete={handleDelete}
+                                index={index}
+                                setDraggedTask={setDraggedTask} 
+                            />
+                            <DropArea />
+                        </React.Fragment>
                     )
             )}
         </section>
