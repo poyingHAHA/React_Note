@@ -11,6 +11,7 @@ const oldTasks = localStorage.getItem("tasks");
 
 const App = () => {
   const [tasks, setTasks] = useState(JSON.parse(oldTasks) || []);
+  const [draggedTask, setDraggedTask] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -31,6 +32,7 @@ const App = () => {
           tasks={tasks}
           status="todo"
           handleDelete={handleDelete}
+          setDraggedTask={setDraggedTask}
         />
         <TaskColumn
           title="Doing"
@@ -38,6 +40,7 @@ const App = () => {
           tasks={tasks}
           status="doing"
           handleDelete={handleDelete}
+          setDraggedTask={setDraggedTask}
         />
         <TaskColumn
           title="Done"
@@ -45,8 +48,11 @@ const App = () => {
           tasks={tasks}
           status="done"
           handleDelete={handleDelete}
+          setDraggedTask={setDraggedTask}
         />
       </main>
+
+      <h1>Active Card - {draggedTask}</h1>
     </div>
   );
 };
