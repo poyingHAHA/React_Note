@@ -22,6 +22,20 @@ const App = () => {
     setTasks(newTasks);
   };
 
+  const onDrop = (status, position) => {
+    console.log(`${draggedTask} is being dragged to ${status} column at the position of ${position}`);
+
+    if(draggedTask === null || draggedTask === undefined) return;
+
+    const taskToMove = tasks[draggedTask];
+    const updatedTasks = tasks.filter((task, index) => index !== draggedTask);
+    updatedTasks.splice(position, 0, { 
+      ...taskToMove,
+      status: status,
+    });
+    setTasks(updatedTasks);
+  }
+
   return (
     <div className="app">
       <TaskForm setTasks={setTasks} />
@@ -33,6 +47,7 @@ const App = () => {
           status="todo"
           handleDelete={handleDelete}
           setDraggedTask={setDraggedTask}
+          onDrop={onDrop}
         />
         <TaskColumn
           title="Doing"
@@ -41,6 +56,7 @@ const App = () => {
           status="doing"
           handleDelete={handleDelete}
           setDraggedTask={setDraggedTask}
+          onDrop={onDrop}
         />
         <TaskColumn
           title="Done"
@@ -49,6 +65,7 @@ const App = () => {
           status="done"
           handleDelete={handleDelete}
           setDraggedTask={setDraggedTask}
+          onDrop={onDrop}
         />
       </main>
 

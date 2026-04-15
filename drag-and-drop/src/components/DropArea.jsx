@@ -1,14 +1,19 @@
-import React from "react";
-import { useState } from "react";
-import "./DropArea.css";
+import React from 'react';
+import { useState } from 'react';
+import './DropArea.css';
 
-const DropArea = () => {
+const DropArea = ({ onDrop }) => {
   const [showDropArea, setShowDropArea] = useState(false);
   return (
     <section
       onDragEnter={() => setShowDropArea(true)}
       onDragLeave={() => setShowDropArea(false)}
-      className={showDropArea ? "drop_area" : "hide_drop"}
+      onDrop={() => {
+        onDrop();
+        setShowDropArea(false);
+      }}
+      onDragOver={(e) => e.preventDefault()}
+      className={showDropArea ? 'drop_area' : 'hide_drop'}
     >
       Drop Here
     </section>
